@@ -2,14 +2,17 @@
 import express from "express";
 import http from "http";
 import bodyParser from "body-parser";
+import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import compression from "compression";
+import { dbConnection } from "./config/dbConnection";
 
+dotenv.config();
 
 // variables
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 5000;
 
 // Middlewares
 app.use(cors({
@@ -19,6 +22,9 @@ app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
+
+// dbConenction
+dbConnection();
 
 // server listen
 const server = http.createServer(app);
