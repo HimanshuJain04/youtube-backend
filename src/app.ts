@@ -10,10 +10,13 @@ import expressSession from "express-session";
 
 const app = express();
 
+// Load environment variables
+const { CORS_ORIGIN, EXPRESS_SESSION_SECRET } = process.env;
+
 
 // Middlewares
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: CORS_ORIGIN || '*',
     credentials: true,
 }));
 app.use(express.json({ limit: '16kb' }));
@@ -23,7 +26,7 @@ app.use(express.static("public"));
 app.use(cookieParser());
 app.use(expressSession(
     {
-        secret: "EXPRESS_SESSION_SECRET",
+        secret: EXPRESS_SESSION_SECRET || "defaultSecret",
         resave: false,
         saveUninitialized: false,
         cookie: { secure: true }

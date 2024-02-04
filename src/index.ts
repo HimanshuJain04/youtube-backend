@@ -11,7 +11,7 @@ import authRoutes from "./routes/auth.route";
 import userRoutes from "./routes/user.route";
 
 
-// config
+// Load environment variables
 dotenv.config();
 
 
@@ -28,7 +28,10 @@ passportInitialize();
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 
-
+// Default route handler
+app.get("/", (req, res) => {
+    res.send("Default Route");
+});
 
 // dbConenction
 dbConnection()
@@ -45,8 +48,3 @@ dbConnection()
     .catch((error) => {
         console.log("DB connection failed: ", error);
     });
-
-
-app.get("/", (req, res) => {
-    res.send("Default Route");
-});
