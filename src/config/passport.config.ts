@@ -37,8 +37,5 @@ export const passportInitialize = () => {
     passport.deserializeUser((user, done) => {
         done(null, user)
     });
-
-    console.log("Passport Initial")
-
 };
 

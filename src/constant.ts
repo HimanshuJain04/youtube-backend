@@ -26,3 +26,5 @@ export enum categoriesList {
     Vlogs = "Vlogs",
     Others = "Others"
 }
+
+export const DB_NAME: string = "Youtube"

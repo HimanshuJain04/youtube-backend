@@ -11,6 +11,7 @@ router.post("/login", passport.authenticate('local', { failureRedirect: '/login'
 
 router.get("/login/google", passport.authenticate('google', { scope: ['profile', "email"] }),
     (req, res) => {
+        console.log("googleee")
         res.send("get by Google");
     }
 );
