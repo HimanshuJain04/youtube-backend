@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema(
         playlist: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Video"
+                ref: "Playlist"
             }
         ],
         likedVideos: [
@@ -37,12 +37,10 @@ const userSchema = new mongoose.Schema(
                 ref: "Video"
             }
         ],
-        myVideos: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Video"
-            }
-        ],
+        myVideos: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Channel"
+        },
         history: [
             {
                 type: mongoose.Schema.Types.ObjectId,
