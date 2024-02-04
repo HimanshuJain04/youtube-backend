@@ -9,6 +9,7 @@ import compression from "compression";
 import { dbConnection } from "./config/dbConnection.config";
 import passport from "passport";
 import expressSession from "express-session";
+import { passportInitialize } from "./config/passport.config";
 
 
 // import routes
@@ -25,6 +26,15 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 
+// dbConenction
+// dbConnection();
+
+//cloudinary
+
+// passportInitialize
+passportInitialize();
+
+
 // Middlewares
 app.use(cors({
     credentials: true,
@@ -33,21 +43,22 @@ app.use(express.json());
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(expressSession());
-app.use(passport.session());
+app.use(expressSession(
+    {
+        secret: "EXPRESS_SESSION_SECRET",
+        resave: false,
+        saveUninitialized: false,
+        cookie: { secure: true }
+    }
+));
 app.use(passport.initialize());
+app.use(passport.session());
 
 
 // route
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 
-
-
-// dbConenction
-dbConnection();
-
-//cloudinary
 
 // server listen
 const server = http.createServer(app);

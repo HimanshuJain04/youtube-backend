@@ -15,7 +15,10 @@ router.get("/login/google", passport.authenticate('google', { scope: ['profile',
     }
 );
 
-router.post("login/google", passport.authenticate("google", { failureRedirect: "/login" }),
+router.post("login/google", passport.authenticate("google", {
+    failureRedirect: "/login",
+    successRedirect: "/"
+}),
     (req, res) => {
         res.send("Login By Google");
     }
