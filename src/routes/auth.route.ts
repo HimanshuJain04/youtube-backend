@@ -2,16 +2,23 @@ import express from "express";
 import passport from 'passport';
 const router = express.Router();
 
+// Login Route
 router.post("/login", passport.authenticate('local', { failureRedirect: '/login' }),
     (req, res) => {
         res.send("Login by Local");
     }
 );
 
-router.post("/login/google", passport.authenticate('local', { failureRedirect: '/login' }),
+router.get("/login/google", passport.authenticate('google', { scope: ['profile', "email"] }),
     (req, res) => {
-        res.send("Login by Google");
+        res.send("get by Google");
     }
-)
+);
+
+router.post("login/google", passport.authenticate("google", { failureRedirect: "/login" }),
+    (req, res) => {
+        res.send("Login By Google");
+    }
+);
 
 export default router;

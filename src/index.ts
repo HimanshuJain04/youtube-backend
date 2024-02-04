@@ -8,9 +8,15 @@ import cors from "cors";
 import compression from "compression";
 import { dbConnection } from "./config/dbConnection.config";
 import passport from "passport";
+import expressSession from "express-session";
 
 
+// import routes
+import authRoutes from "./routes/auth.route";
+import userRoutes from "./routes/user.route";
 
+
+// config
 dotenv.config();
 
 
@@ -26,15 +32,22 @@ app.use(cors({
 app.use(express.json());
 app.use(compression());
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(expressSession());
+app.use(passport.session());
+app.use(passport.initialize());
+
+
+// route
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/user", userRoutes);
+
 
 
 // dbConenction
 dbConnection();
 
 //cloudinary
-
 
 // server listen
 const server = http.createServer(app);
