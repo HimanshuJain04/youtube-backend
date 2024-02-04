@@ -1,4 +1,5 @@
 import mongoose, { mongo } from "mongoose";
+import { categoriesList } from "../constant";
 
 const videoSchema = new mongoose.Schema(
     {
@@ -28,8 +29,9 @@ const videoSchema = new mongoose.Schema(
             }
         ],
         category: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Category"
+            type: String,
+            enum: Object.values(categoriesList),
+            require: true,
         },
         duration: {
             type: Number,
