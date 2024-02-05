@@ -2,6 +2,9 @@ import { asyncHandler } from "utils/asyncHandler";
 import User from "../models/user.model";
 import { Response, Request } from "express";
 import bcrypt from "bcrypt";
+import { ApiError } from "utils/apiError";
+import { ApiResponse } from "utils/apiResponse";
+import { imageUploader } from "utils/uploadToCloudinary";
 
 
 // important variables
@@ -24,18 +27,13 @@ export const register = async (req: Request, res: Response): Promise<Response> =
             password,
         } = req.body;
 
-        const { profileImg } = req?.files;
+        const profileImgPath = req.files?.profileImg;
 
         console.log("req: ", req);
 
         // validation
         if (!email || !fullName || !userName || !password) {
-            return res.status(400).json(
-                {
-                    success: false,
-                    message: "All fields are required"
-                }
-            )
+            throw new ApiError(400, "All fields are required");
         }
 
         // validate the user
@@ -46,12 +44,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
         );
 
         if (existedUser) {
-            return res.status(400).json(
-                {
-                    success: false,
-                    message: "User with this email or username already exists"
-                }
-            )
+            throw new ApiError(409, "User with email or username already exists");
         }
 
         // hash the password
@@ -60,8 +53,10 @@ export const register = async (req: Request, res: Response): Promise<Response> =
         // upload the profile-image
         let url: string = "";
 
-        if (profileImg) {
+        if (profileImgPath) {
             // upload the image on cloud storage
+            const response = await imageUploader(profileImgPath);
+            url = response.secure_url;
 
         } else {
             // get temp-image by name
@@ -80,13 +75,19 @@ export const register = async (req: Request, res: Response): Promise<Response> =
             }
         );
 
+        const createdUser = await User
+            .findById(user._id)
+            .select(
+                "-password -refreshToken"
+            );
+
         // return response
         return res.status(200).json(
-            {
-                success: true,
-                message: "User Registered Successfully",
-                data: [user]
-            }
+            new ApiResponse(
+                200,
+                createdUser,
+                "User Registered Successfully"
+            )
         );
 
     } catch (error) {

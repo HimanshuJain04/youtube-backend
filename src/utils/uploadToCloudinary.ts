@@ -4,8 +4,8 @@ import fs from "fs";
 
 // Define a type for the upload options
 interface UploadOptions {
-    resource_type?: string;
-    folder?: string;
+    resource_type: string;
+    folder: string;
 }
 
 export const imageUploader = async (image: any): Promise<any | null> => {
@@ -37,7 +37,7 @@ export const videoUploader = async (video: any): Promise<any | null> => {
 
     } catch (error) {
         fs.unlinkSync(video);
-        console.log("Video upload to cloudinary failed!")
+        console.log("Video upload to cloudinary failed!");
         console.log("Error: ", error);
         return null;
     }
