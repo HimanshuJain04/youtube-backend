@@ -1,10 +1,11 @@
-import { asyncHandler } from "utils/asyncHandler";
 import User from "../models/user.model";
 import { Response, Request } from "express";
 import bcrypt from "bcrypt";
-import { ApiError } from "utils/apiError";
-import { ApiResponse } from "utils/apiResponse";
-import { imageUploader } from "utils/uploadToCloudinary";
+import { ApiError } from "../utils/apiError";
+import { ApiResponse } from "../utils/apiResponse";
+import { asyncHandler } from "../utils/asyncHandler";
+import { cloudinaryUploader } from "../utils/uploadToCloudinary";
+import fs from "fs"
 
 
 // important variables
@@ -27,10 +28,6 @@ export const register = async (req: Request, res: Response): Promise<Response> =
             password,
         } = req.body;
 
-        const profileImgPath = req.files?.profileImg;
-
-        console.log("req: ", req);
-
         // validation
         if (!email || !fullName || !userName || !password) {
             throw new ApiError(400, "All fields are required");
@@ -43,6 +40,8 @@ export const register = async (req: Request, res: Response): Promise<Response> =
             }
         );
 
+        console.log("Existed : ", existedUser);
+
         if (existedUser) {
             throw new ApiError(409, "User with email or username already exists");
         }
@@ -53,9 +52,14 @@ export const register = async (req: Request, res: Response): Promise<Response> =
         // upload the profile-image
         let url: string = "";
 
-        if (profileImgPath) {
+        if ("profileImg" in req.files) {
+
+            const profileImgPath = req.files.profileImg[0]?.path;
+
             // upload the image on cloud storage
-            const response = await imageUploader(profileImgPath);
+            const response = await cloudinaryUploader(profileImgPath, "Image");
+
+            console.log("Res: ", response)
             url = response.secure_url;
 
         } else {
@@ -92,13 +96,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
 
     } catch (error) {
 
-        return res.status(500).json(
-            {
-                success: false,
-                message: "Server failed to register user, try again later",
-                error: error
-            }
-        );
+        throw new ApiError(500, "Server failed to register user, try again later", error)
     }
 
 }
