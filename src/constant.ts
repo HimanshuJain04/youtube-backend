@@ -27,4 +27,8 @@ export enum categoriesList {
     Others = "Others"
 }
 
-export const DB_NAME: string = "Youtube"
+export const DB_NAME: string = "Youtube";
+
+export const CLOUDINARY_IMAGE_FOLDER: string = "youtube_images";
+
+export const CLOUDINARY_VIDEO_FOLDER: string = "youtube_videos";

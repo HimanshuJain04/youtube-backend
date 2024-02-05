@@ -4,6 +4,7 @@ import http from "http";
 import dotenv from "dotenv";
 import { dbConnection } from "./config/dbConnection.config";
 import { passportInitialize } from "./config/passport.config";
+import { cloudinaryConnection } from "./config/cloudinary.config";
 
 
 // import routes
@@ -19,6 +20,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 //cloudinary
+cloudinaryConnection();
 
 // passportInitialize
 passportInitialize();
