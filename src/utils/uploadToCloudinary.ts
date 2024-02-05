@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 import { CLOUDINARY_IMAGE_FOLDER, CLOUDINARY_VIDEO_FOLDER } from '../constant';
+import fs from "fs";
 
 // Define a type for the upload options
 interface UploadOptions {
@@ -18,6 +19,7 @@ export const imageUploader = async (image: any): Promise<any | null> => {
         return await cloudinary.uploader.upload(image, options);
 
     } catch (error) {
+        fs.unlinkSync(image);
         console.log("Image upload to cloudinary failed!")
         console.log("Error: ", error);
         return null;
@@ -34,6 +36,7 @@ export const videoUploader = async (video: any): Promise<any | null> => {
         return await cloudinary.uploader.upload(video, options);
 
     } catch (error) {
+        fs.unlinkSync(video);
         console.log("Video upload to cloudinary failed!")
         console.log("Error: ", error);
         return null;

@@ -11,8 +11,8 @@ const saltRound = 10;
 // Helper Functions
 
 
-
-export const register = asyncHandler(async (req: Request, res: Response): Promise<Response> => {
+// register
+export const register = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
@@ -34,7 +34,6 @@ export const register = asyncHandler(async (req: Request, res: Response): Promis
                 {
                     success: false,
                     message: "All fields are required"
-
                 }
             )
         }
@@ -101,4 +100,4 @@ export const register = asyncHandler(async (req: Request, res: Response): Promis
         );
     }
 
-});
+}
