@@ -2,7 +2,10 @@ import express from "express";
 import passport from 'passport';
 const router = express.Router();
 import { upload } from "../middlerwares/multer.middleware";
+import { verifyJWT } from "middlerwares/auth.middleware";
 import {
+    login,
+    logout,
     register
 } from "../controllers/auth.controller";
 
@@ -17,5 +20,9 @@ router.route("/register").post(upload.fields(
         }
     ]
 ), register);
+
+router.route("/login").post(login);
+
+router.route("/logout").post(verifyJWT, logout);
 
 export default router;
