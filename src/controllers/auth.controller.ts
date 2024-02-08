@@ -186,6 +186,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
     }
 }
 
+// logout
 export const logout = async (req: Request, res: Response): Promise<Response> => {
 
     try {
@@ -232,5 +233,4 @@ export const logout = async (req: Request, res: Response): Promise<Response> => 
 
         throw new ApiError(500, "Server failed to logout user, try again later", error)
     }
-
 }

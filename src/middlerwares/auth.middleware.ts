@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express"
 import { ApiError } from "utils/apiError";
-import jwt, { decode } from "jsonwebtoken"
+import jwt, { JwtPayload } from "jsonwebtoken"
 import User from "models/user.model";
+
 
 export const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
     if (req.isAuthenticated()) {
@@ -22,7 +23,7 @@ export const verifyJWT = async (req: Request, res: Response, next: NextFunction)
 
         const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
-        if (!("_id" in decodedToken)) {
+        if (!decodedToken?._id) {
             throw new ApiError(401, "Invalid Access Token");
         }
 
