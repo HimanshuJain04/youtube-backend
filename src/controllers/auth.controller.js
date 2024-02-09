@@ -13,7 +13,7 @@ const saltRound = 10;
 
 
 // Helper Functions
-const generateRefreshAndAccessToken = async (userId: string) => {
+const generateRefreshAndAccessToken = async (userId) => {
     try {
 
         const user = await User.findById(userId);
@@ -34,7 +34,7 @@ const generateRefreshAndAccessToken = async (userId: string) => {
 
 
 // register
-export const register = async (req: Request, res: Response): Promise<Response> => {
+export const register = async (req, res) => {
 
     try {
 
@@ -68,7 +68,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
         const hashedPass = await bcrypt.hash(password, saltRound);
 
         // upload the profile-image
-        let url: string = "";
+        let url = "";
 
         if ("profileImg" in req.files) {
 
@@ -120,7 +120,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
 }
 
 // login
-export const login = async (req: Request, res: Response): Promise<Response> => {
+export const login = async (req, res) => {
 
     try {
 
@@ -187,7 +187,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 }
 
 // logout
-export const logout = async (req: Request, res: Response): Promise<Response> => {
+export const logout = async (req, res) => {
 
     try {
 

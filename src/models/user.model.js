@@ -1,31 +1,8 @@
-import mongoose, { Document } from "mongoose";
+import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 
-// Define an interface that extends the Mongoose Document interface
-interface IUser extends Document {
-    fullName: string;
-    userName: string;
-    email: string;
-    password: string;
-    profileImg?: string;
-    isVerified: boolean;
-    playlist: string[]; // Assuming playlist contains IDs
-    likedVideos: string[]; // Assuming likedVideos contains IDs
-    myVideos: string[]; // Assuming myVideos contains an ID or null
-    history: string[]; // Assuming history contains IDs
-    watchLater: string[]; // Assuming watchLater contains IDs
-    subscribedTo: string[]; // Assuming subscribedTo contains user IDs
-    subscribers: string[]; // Assuming subscribers contains user IDs
-    accessToken?: string; // Optional field
-    refreshToken?: string; // Optional field
 
-    // Custom methods
-    generateAccessToken: () => Promise<string>;
-    generateRefreshToken: () => Promise<string>;
-}
-
-
-const userSchema = new mongoose.Schema<IUser>(
+const userSchema = new mongoose.Schema(
     {
         fullName: {
             type: String,
@@ -138,6 +115,6 @@ userSchema.methods.generateRefreshToken = async function () {
     )
 }
 
-const User = mongoose.model<IUser>('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
 export default User;

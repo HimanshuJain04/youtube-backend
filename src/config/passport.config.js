@@ -20,14 +20,19 @@ export const passportInitialize = () => {
     ));
 
     // Local Authentication
-    passport.use(new localStrategy({ usernameField: 'email', passwordField: 'password' }, function (username, password, done) {
+    passport.use(new localStrategy(
+        {
+            usernameField: 'email',
+            passwordField: 'password'
+        },
+        function (username, password, done) {
 
-        console.log("Local Auth");
-        console.log("username: ", username)
-        console.log("password: ", password)
+            console.log("Local Auth");
+            console.log("username: ", username)
+            console.log("password: ", password)
 
-        done(null, { username, password });
-    }
+            done(null, { username, password });
+        }
     ));
 
     passport.serializeUser((user, done) => {

@@ -1,12 +1,12 @@
-import { v2 as cloudinary, ConfigOptions } from 'cloudinary';
+import { v2 as cloudinary } from 'cloudinary';
 import { CLOUDINARY_IMAGE_FOLDER, CLOUDINARY_VIDEO_FOLDER } from '../constant';
 import fs from "fs";
 
 
-export const cloudinaryUploader = async (filePath: string, type: string): Promise<any | null> => {
+export const cloudinaryUploader = async (filePath, type) => {
     try {
 
-        const options: ConfigOptions = {
+        const options = {
             resource_type: "auto",
             folder: type === "Image" ? CLOUDINARY_IMAGE_FOLDER : CLOUDINARY_VIDEO_FOLDER,
         };

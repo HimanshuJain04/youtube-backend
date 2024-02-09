@@ -1,10 +1,9 @@
-import { Request, Response, NextFunction } from "express"
 import { ApiError } from "utils/apiError";
-import jwt, { JwtPayload } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import User from "models/user.model";
 
 
-export const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
+export const isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
     }
@@ -12,7 +11,7 @@ export const isAuthenticated = (req: Request, res: Response, next: NextFunction)
     res.redirect("/login");
 }
 
-export const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
+export const verifyJWT = async (req, res, next) => {
 
     try {
         const token = req.cookies?.VideoHub_Access_Token || req.header("Authorization")?.replace("Bearer ", "");

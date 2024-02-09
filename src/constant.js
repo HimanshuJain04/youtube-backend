@@ -1,6 +1,6 @@
 
 // category List for Videos
-export enum categoriesList {
+export const categoriesList {
     Music = "Music",
     Education = "Education",
     Entertainment = "Entertainment",
@@ -27,8 +27,8 @@ export enum categoriesList {
     Others = "Others"
 }
 
-export const DB_NAME: string = "Youtube";
+export const DB_NAME = "Youtube";
 
-export const CLOUDINARY_IMAGE_FOLDER: string = "youtube_images";
+export const CLOUDINARY_IMAGE_FOLDER = "youtube_images";
 
-export const CLOUDINARY_VIDEO_FOLDER: string = "youtube_videos";
+export const CLOUDINARY_VIDEO_FOLDER = "youtube_videos";
