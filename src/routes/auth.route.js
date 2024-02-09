@@ -1,13 +1,13 @@
 import express from "express";
 import passport from 'passport';
 const router = express.Router();
-import { upload } from "../middlerwares/multer.middleware";
-import { verifyJWT } from "middlerwares/auth.middleware";
+import { upload } from "../middlewares/multer.middleware.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 import {
     login,
     logout,
     register
-} from "../controllers/auth.controller";
+} from "../controllers/auth.controller.js";
 
 
 // register routes

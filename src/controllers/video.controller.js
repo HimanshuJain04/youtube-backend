@@ -1,10 +1,10 @@
-import { asyncHandler } from "utils/asyncHandler";
-import User from "../models/user.model";
-import Video from "../models/video.model";
+import { asyncHandler } from "utils/asyncHandler.js";
+import User from "../models/user.model.js";
+import Video from "../models/video.model.js";
 import { Response, Request } from "express";
-import { ApiError } from 'utils/apiError';
-import { cloudinaryUploader } from '../utils/uploadToCloudinary';
-import { ApiResponse } from "utils/apiResponse";
+import { ApiError } from 'utils/apiError.js';
+import { cloudinaryUploader } from '../utils/uploadToCloudinary.js';
+import { ApiResponse } from "utils/apiResponse.js";
 
 
 export const createVideo = async (req: Request, res: Response): Promise<Response> => {

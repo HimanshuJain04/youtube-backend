@@ -1,10 +1,9 @@
-import User from "../models/user.model";
-import { Response, Request } from "express";
+import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
-import { ApiError } from "../utils/apiError";
-import { ApiResponse } from "../utils/apiResponse";
-import { asyncHandler } from "../utils/asyncHandler";
-import { cloudinaryUploader } from "../utils/uploadToCloudinary";
+import { ApiError } from "../utils/apiError.js";
+import { ApiResponse } from "../utils/apiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { cloudinaryUploader } from "../utils/uploadToCloudinary.js";
 import jwt from "jsonwebtoken";
 
 

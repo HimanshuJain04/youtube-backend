@@ -1,6 +1,5 @@
 // imports
 import express from "express";
-import bodyParser, { urlencoded } from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import compression from "compression";

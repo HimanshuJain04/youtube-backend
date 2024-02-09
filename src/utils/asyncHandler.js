@@ -1,8 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
 
-
-
-const asyncHandler = async((requestHandler) => {
+const asyncHandler = async (requestHandler) => {
 
     return (req, res, next) => {
         Promise
@@ -11,4 +8,4 @@ const asyncHandler = async((requestHandler) => {
     }
 }
 
-export { asyncHandler };
+export { asyncHandler }

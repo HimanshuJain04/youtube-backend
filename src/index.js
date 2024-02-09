@@ -1,15 +1,15 @@
 // import
-import { app } from "./app";
+import { app } from "./app.js";
 import http from "http";
 import dotenv from "dotenv";
-import { dbConnection } from "./config/dbConnection.config";
-import { passportInitialize } from "./config/passport.config";
-import { cloudinaryConnection } from "./config/cloudinary.config";
+import { dbConnection } from "./config/dbConnection.config.js";
+import { passportInitialize } from "./config/passport.config.js";
+import { cloudinaryConnection } from "./config/cloudinary.config.js";
 
 
 // import routes
-import authRoutes from "./routes/auth.route";
-import userRoutes from "./routes/user.route";
+import authRoutes from "./routes/auth.route.js";
+import userRoutes from "./routes/user.route.js";
 
 
 // Load environment variables
