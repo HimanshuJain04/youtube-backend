@@ -6,7 +6,7 @@ import { ApiError } from 'utils/apiError.js';
 import { cloudinaryUploader } from '../utils/uploadToCloudinary.js';
 import { ApiResponse } from "utils/apiResponse.js";
 
-
+// TODO: send the user as response on very changes as welll as video
 export const createVideo = async (req, res) => {
 
     try {
@@ -148,6 +148,101 @@ export const getVideoById = async (req, res) => {
     }
 
 }
+
+
+export const likeVideo = async (req, res) => {
+
+    try {
+
+        // fetch id from params
+        const { videoId, userId } = req.params;
+
+        // validation
+        if (!videoId || !userId) {
+            throw new ApiError(400, "All fields are required");
+        }
+
+        const existedVideo = await Video.findById(videoId);
+        const existedUser = await User.findById(userId);
+
+        // validation
+        if (!existedVideo || !existedUser) {
+            throw new ApiError(404, "Video or user not found");
+        }
+
+        console.log("existedVideo existedUser: ", existedVideo, existedUser);
+
+        existedVideo.like.push(existedUser._id);
+        existedUser.likedVideos.push(existedVideo._id);
+
+        await existedVideo.save();
+
+        await existedUser.save();
+
+        // return response
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                {
+                    video: existedVideo,
+                    user: existedUser,
+                },
+                "Video liked by user successfully",
+            )
+        )
+
+    } catch (error) {
+        throw new ApiError(500, "Server failed to like the video, try again later", error, false)
+    }
+}
+
+export const dislikeVideo = async (req, res) => {
+
+    try {
+
+        // fetch id from params
+        const { videoId, userId } = req.params;
+
+        // validation
+        if (!videoId || !userId) {
+            throw new ApiError(400, "All fields are required");
+        }
+
+        const existedVideo = await Video.findById(videoId);
+        const existedUser = await User.findById(userId);
+
+        // validation
+        if (!existedVideo || !existedUser) {
+            throw new ApiError(404, "Video or user not found");
+        }
+
+        console.log("existedVideo existedUser: ", existedVideo, existedUser);
+
+        existedVideo.like.pop(existedUser._id);
+        existedUser.likedVideos.pop(existedVideo._id);
+
+        await existedVideo.save();
+
+        await existedUser.save();
+
+        // return response
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                {
+                    video: existedVideo,
+                    user: existedUser,
+                },
+                "Video disliked by user successfully",
+            )
+        )
+
+    } catch (error) {
+        throw new ApiError(500, "Server failed to dislike the video, try again later", error, false)
+    }
+}
+
+
 
 export const getVideo = async (req, res) => {
 
