@@ -21,6 +21,12 @@ const userSchema = new mongoose.Schema(
             required: true,
             unique: true
         },
+        communityPost: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "CommunityPost"
+            }
+        ],
         password: {
             type: String,
             trim: true,

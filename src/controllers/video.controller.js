@@ -182,8 +182,8 @@ export const getVideo = async (req, res) => {
     } catch (error) {
         throw new ApiError(500, "Server failed to fetched video by id, try again later", error, false)
     }
-
 }
+
 
 //  TODOS:
 // SEND only limited data to frontend
